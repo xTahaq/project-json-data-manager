@@ -45,7 +45,7 @@
 
     async function loadPage() {
       if (!localStorage.datajson) {
-        localStorage.datajson = JSON.stringify({"main": [{"id": "asdas", "content": "sadafsdfwe"}, {"id": "asdasw235235", "content": "sadafs25623164fwe"}]})
+        return
       }
       datajson = JSON.parse(localStorage.datajson)
       if (!datajson.main) return Promise("Critical part of the JSON is missing, 'main' (main object)")
