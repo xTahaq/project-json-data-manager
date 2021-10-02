@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Project JSON Data Manager</title>
+  </head>
+  <body>
+    <header>
+      <nav id="navbar">
+        <h1>Project JSON Data Manager <span class="smaller-font">by Taha</span></h1>
+        <ul>
+          <li><a href="MainPage.html">Main Page</a></li>
+          <li><a href="AddJsonPage.html">Add an object to JSON</a></li>
+          <li><a href="OverwriteJsonPage.html">See and overwrite/delete objects in JSON</a></li>
+        </ul>
+      </nav>
+    </header>
+    <div>
+      <h1 class="text-align-center">ADD AN OBJECT TO THE DATA</h1>
+    </div>
+    <div id="idObjInp">
+      <label>ID: </label>
+      <input id=ObjID placeholder="Type ID here"></input>
+    </div>
+    <div id="contentObjInp">
+      <label>Content: </label>
+      <textarea id="ObjContent" rows="5" cols="50" placeholder="Type content here"></textarea>
+    </div>
+    <div>
+      <button class="def-button" id="ObjOK" onclick="save()">Send</button>
+    </div>
+  </body>
+
+  <script>
+    function save() {
+      idinp = document.getElementById(`ObjID`).value
+      ctinp = document.getElementById(`ObjContent`).value
+      if (!localStorage.datajson) {
+        JSON_Object = {
+          "main": [
+            {
+              id: idinp,
+              content: ctinp
+            }
+          ]
+        }
+        JSON_Object = JSON.stringify(JSON_Object)
+      } else {
+        data = JSON.parse(localStorage.datajson)
+        if (data.main.find(obj => obj.id === idinp)) {
+          return window.location.reload()
+        } else {
+          data.main.push({
+            id: idinp,
+            content: ctinp
+          })
+          localStorage.datajson = JSON.stringify(data)
+          window.location.reload()
+        }
+      }
+    }
+  </script>
+</html>

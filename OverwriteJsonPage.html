@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <title>Project JSON Data Manager</title>
+  </head>
+  <body>
+    <header>
+      <nav id="navbar">
+        <h1>Project JSON Data Manager <span class="smaller-font">by Taha</span></h1>
+        <ul>
+          <li><a href="MainPage.html">Main Page</a></li>
+          <li><a href="AddJsonPage.html">Add an object to JSON</a></li>
+          <li><a href="OverwriteJsonPage.html">See and overwrite/delete objects in JSON</a></li>
+        </ul>
+      </nav>
+    </header>
+    <div id="MAIN"></div>
+  </body>
+  <script type="text/javascript">
+    let datajson = null;
+
+    async function deleteObj(index) {
+      datajson = JSON.parse(localStorage.datajson)
+      data = datajson.main
+      data.splice(index)
+      console.log(data)
+      window.location.reload()
+      localStorage.datajson = JSON.stringify(datajson)
+    }
+
+    async function overwrite(index) {
+      datajson = JSON.parse(localStorage.datajson)
+      idinp = document.getElementById(`index${index}inputid`).value
+      contentinp = document.getElementById(`index${index}inputct`).value
+      data = datajson.main
+      data[index].id = idinp
+      data[index].content = contentinp
+      window.location.reload()
+      localStorage.datajson = JSON.stringify(datajson)
+    }
+
+    async function loadPage() {
+      if (!localStorage.datajson) {
+        localStorage.datajson = JSON.stringify({"main": [{"id": "asdas", "content": "sadafsdfwe"}, {"id": "asdasw235235", "content": "sadafs25623164fwe"}]})
+      }
+      datajson = JSON.parse(localStorage.datajson)
+      if (!datajson.main) return Promise("Critical part of the JSON is missing, 'main' (main object)")
+      console.log(datajson)
+      i = 0
+      const mainElement = document.getElementById("MAIN")
+      datajson.main.forEach(data => {
+          let text
+          const mainDiv = document.createElement("div")
+          mainDiv.setAttribute("id", `index${i}`)
+          mainElement.appendChild(mainDiv)
+          const titleofiddiv = document.createElement("div")
+          const titleofid = document.createElement("h3")
+          text = document.createTextNode("Object " + data.id)
+          titleofid.appendChild(text)
+          mainDiv.append(titleofiddiv)
+          titleofiddiv.append(titleofid)
+          const inputIDDiv = document.createElement("div")
+          mainDiv.appendChild(inputIDDiv)
+          const inputtext = document.createElement("label")
+          text = document.createTextNode("ID: ")
+          inputtext.appendChild(text)
+          const inputID = document.createElement("input")
+          inputID.setAttribute("id", `index${i}inputid`)
+          inputID.setAttribute("type", `text`)
+          inputID.setAttribute("value", data.id)
+          inputIDDiv.appendChild(inputtext)
+          inputIDDiv.appendChild(inputID)
+          const inputContentDiv = document.createElement("div")
+          mainDiv.appendChild(inputContentDiv)
+          const contenttext = document.createElement("label")
+          text = document.createTextNode("Content: ")
+          contenttext.appendChild(text)
+          const inputContent = document.createElement("textarea")
+          inputContent.setAttribute("id", `index${i}inputct`)
+          inputContent.setAttribute("rows", 4)
+          inputContent.setAttribute("cols", 50)
+          text = document.createTextNode(data.content)
+          inputContent.appendChild(text)
+          inputContentDiv.appendChild(contenttext)
+          inputContentDiv.appendChild(inputContent)
+          const buttonsDiv = document.createElement("div")
+          buttonsDiv.setAttribute("class", "space1rem")
+          mainDiv.appendChild(buttonsDiv)
+          const buttonOverwrite = document.createElement("button")
+          buttonOverwrite.setAttribute("onclick", `overwrite(${i})`)
+          buttonOverwrite.setAttribute("class", `def-button`)
+          text = document.createTextNode("OVERWRITE")
+          buttonOverwrite.appendChild(text)
+          const buttonDelete = document.createElement("button")
+          buttonDelete.setAttribute("onclick", `deleteObj(${i})`)
+          buttonDelete.setAttribute("class", `def-button`)
+          text = document.createTextNode("DELETE")
+          buttonDelete.appendChild(text)
+          buttonsDiv.appendChild(buttonOverwrite)
+          buttonsDiv.appendChild(buttonDelete)
+          i++
+      })
+    }
+
+    loadPage()
+
+  </script>
+</html>
