@@ -4,17 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <title>Project JSON Data Manager</title>
   </head>
   <body>
     <header>
       <nav id="navbar">
-        <h1>Project JSON Data Manager <span class="smaller-font">by Taha</span></h1>
+        <h1 id="navtitle">Project JSON Data Manager <span class="smaller-font">by Taha</span></h1>
         <ul>
-          <li><a href="MainPage.html">Main Page</a></li>
-          <li><a href="AddJsonPage.html">Add an object to JSON</a></li>
-          <li><a href="OverwriteJsonPage.html">See and overwrite/delete objects in JSON</a></li>
+          <li><a name="navbarlocate" href="MainPage.html">Main Page</a></li>
+          <li><a name="navbarlocate" href="AddJsonPage.html">Add an object to JSON</a></li>
+          <li><a name="navbarlocate" href="OverwriteJsonPage.html">See and overwrite/delete objects in JSON</a></li>
+          <li><a name="navbarlocate" href="SettingsPage.html">Settings</a></li>
         </ul>
       </nav>
     </header>
@@ -23,11 +23,15 @@
   <script type="text/javascript">
     let datajson = null;
 
+
+    if (localStorage.settings) {
+      document.getElementById("navbar")
+    }
+
     async function deleteObj(index) {
       datajson = JSON.parse(localStorage.datajson)
       data = datajson.main
       data.splice(index, 1)
-      console.log(data)
       window.location.reload()
       localStorage.datajson = JSON.stringify(datajson)
     }
@@ -49,7 +53,6 @@
       }
       datajson = JSON.parse(localStorage.datajson)
       if (!datajson.main) return Promise("Critical part of the JSON is missing, 'main' (main object)")
-      console.log(datajson)
       i = 0
       const mainElement = document.getElementById("MAIN")
       datajson.main.forEach(data => {
@@ -109,4 +112,5 @@
     loadPage()
 
   </script>
+  <script src="loadSettings.js"></script>
 </html>

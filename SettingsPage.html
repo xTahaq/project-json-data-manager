@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <style></style>
+    <title>Project JSON Data Manager</title>
+  </head>
+  <body>
+    <header>
+      <nav id="navbar">
+        <h1 id="navtitle">Project JSON Data Manager <span class="smaller-font">by Taha</span></h1>
+        <ul>
+          <li><a name="navbarlocate" href="MainPage.html">Main Page</a></li>
+          <li><a name="navbarlocate" href="AddJsonPage.html">Add an object to JSON</a></li>
+          <li><a name="navbarlocate" href="OverwriteJsonPage.html">See and overwrite/delete objects in JSON</a></li>
+          <li><a name="navbarlocate" href="SettingsPage.html">Settings</a></li>
+        </ul>
+      </nav>
+    </header>
+    <div>
+      <h1 class="text-align-center">SETTINGS</h1>
+    </div>
+
+    <div>
+        <h2>THEMES</h2>
+        <div>
+            <h3>Page</h3>
+            <div>
+                <label>Background Color: </label>
+                <input id="SETTINGS_PAGE_BG-COLOR" type="color"></input>
+            </div>
+            <div>
+                <label>Text Color: </label>
+                <input id="SETTINGS_PAGE_TXT-COLOR" type="color"></input>
+            </div>
+        </div>
+        <div>
+            <h3>Navigation Bar</h3>
+            <div>
+                <label>Background Color: </label>
+                <input id="SETTINGS_NAVBAR_BG-COLOR" type="color"></input>
+            </div>
+            <div>
+                <label>Text Color: </label>
+                <input id="SETTINGS_NAVBAR_TXT-COLOR" type="color"></input>
+            </div>
+        </div>
+        <button class="def-button" id="ObjOK" onclick="save()">SAVE SETTINGS</button>
+    </div>
+
+    <div>
+        <h2>CHECK VERSION</h2>
+        <div>
+            <button class="bigger-button" onclick="checkVersion()">Click to Check Version</button>
+        </div>
+        <label id="versionCheckOutput"></label>
+    </div>
+
+    <div>
+        <h2>DANGER ZONE</h2>
+        <label><br>THIS BUTTON WILL RESET YOUR SETTINGS. <br>THIS IS RECOMMENDED IF THERE'S AN ISSUE ABOUT LOADING SETTINGS!</label>
+        <div>
+            <button class="bigger-button" onclick="resetSettings()">RESET SETTINGS</button>
+        </div>
+        <label><br>THIS BUTTON WILL RESET YOUR JSON DATA. <br>ONLY USE THIS IF YOU WANT TO CLEAR THE DATA QUICKLY OR SOMEHOW DATA IS GLITCHED!</label>
+        <div>
+            <button class="bigger-button" onclick="resetData()">RESET DATA</button>
+        </div>
+    </div>
+  </body>
+  <script type="text/javascript" src="version.json"></script>
+  <script src="loadSettings.js"></script>
+  <script>
+    data = JSON.parse(localStorage.settings)
+
+    page_bgcolor = document.getElementById("SETTINGS_PAGE_BG-COLOR")
+    page_txtcolor = document.getElementById("SETTINGS_PAGE_TXT-COLOR")
+    navbar_bgcolor = document.getElementById("SETTINGS_NAVBAR_BG-COLOR")
+    navbar_txtcolor = document.getElementById("SETTINGS_NAVBAR_TXT-COLOR")
+
+    page_bgcolor.value = data.page.bgcolor
+    page_txtcolor.value = data.page.textcolor
+    navbar_bgcolor.value = data.navbar.bgcolor
+    navbar_txtcolor.value = data.navbar.textcolor
+
+    function save() {
+        data.page.bgcolor = page_bgcolor.value
+        data.page.textcolor = page_txtcolor.value
+        data.navbar.bgcolor = navbar_bgcolor.value
+        data.navbar.textcolor = navbar_txtcolor.value
+        localStorage.settings = JSON.stringify(data)
+        window.location.reload()
+    }
+    function resetSettings() {
+        delete localStorage.settings
+        window.location.reload()
+    }
+    function resetData() {
+        delete localStorage.datajson
+        window.location.reload()
+    }
+    function checkVersion() {
+        fetch("raw.githubusercontent.com/xTahaq/project-json-data-manager/master/version.json").then(res => {
+            res.json()
+        }).then(versionJson => {
+            outp = document.getElementById("versionCheckOutput")
+            if (Number(versionJson.version.replace(/./g, "")) > Number(VERSION.replace(/./g, ""))) {
+                outp.innerHTML = `New version available! (${VERSION} => ${versionJson.version}) Please update it at https://github.com/xTahaq/project-json-data-manager`
+            } else {
+                outp.innerHTML = `${VERSION} is not outdated, you are up-to-date!`
+            }
+        }).catch(err => alert(err))
+    }
+  </script>
+</html>

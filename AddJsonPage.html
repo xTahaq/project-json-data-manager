@@ -9,11 +9,12 @@
   <body>
     <header>
       <nav id="navbar">
-        <h1>Project JSON Data Manager <span class="smaller-font">by Taha</span></h1>
+        <h1 id="navtitle">Project JSON Data Manager <span class="smaller-font">by Taha</span></h1>
         <ul>
-          <li><a href="MainPage.html">Main Page</a></li>
-          <li><a href="AddJsonPage.html">Add an object to JSON</a></li>
-          <li><a href="OverwriteJsonPage.html">See and overwrite/delete objects in JSON</a></li>
+          <li><a name="navbarlocate" href="MainPage.html">Main Page</a></li>
+          <li><a name="navbarlocate" href="AddJsonPage.html">Add an object to JSON</a></li>
+          <li><a name="navbarlocate" href="OverwriteJsonPage.html">See and overwrite/delete objects in JSON</a></li>
+          <li><a name="navbarlocate" href="SettingsPage.html">Settings</a></li>
         </ul>
       </nav>
     </header>
@@ -29,10 +30,10 @@
       <textarea id="ObjContent" rows="5" cols="50" placeholder="Type content here"></textarea>
     </div>
     <div>
-      <button class="def-button" id="ObjOK" onclick="save()">Send</button>
+      <button class="def-button" id="ObjOK" onclick="save()">ADD</button>
     </div>
   </body>
-
+  <script src="loadSettings.js"></script>
   <script>
     function save() {
       idinp = document.getElementById(`ObjID`).value
@@ -46,7 +47,7 @@
             }
           ]
         }
-        JSON_Object = JSON.stringify(JSON_Object)
+        localStorage.datajson = JSON.stringify(JSON_Object)
       } else {
         data = JSON.parse(localStorage.datajson)
         if (data.main.find(obj => obj.id === idinp)) {
