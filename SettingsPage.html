@@ -70,7 +70,6 @@
         </div>
     </div>
   </body>
-  <script type="text/javascript" src="version.json"></script>
   <script src="loadSettings.js"></script>
   <script>
     data = JSON.parse(localStorage.settings)
@@ -102,9 +101,7 @@
         window.location.reload()
     }
     function checkVersion() {
-        fetch("raw.githubusercontent.com/xTahaq/project-json-data-manager/master/version.json").then(res => {
-            res.json()
-        }).then(versionJson => {
+        fetch("https://raw.githubusercontent.com/xTahaq/project-json-data-manager/master/version.json").then(res => res.json()).then(versionJson => {
             outp = document.getElementById("versionCheckOutput")
             if (Number(versionJson.version.replace(/./g, "")) > Number(VERSION.replace(/./g, ""))) {
                 outp.innerHTML = `New version available! (${VERSION} => ${versionJson.version}) Please update it at https://github.com/xTahaq/project-json-data-manager`
