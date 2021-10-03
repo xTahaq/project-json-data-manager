@@ -3,7 +3,6 @@
  
 Open MainPage.html first
 
-<<<<<<< HEAD
 First HTML/CSS/JS project!
 
 DISCORD ACCOUNT: Taha#4216
