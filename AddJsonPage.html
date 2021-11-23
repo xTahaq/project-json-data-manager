@@ -38,7 +38,7 @@
     function save() {
       idinp = document.getElementById(`ObjID`).value
       ctinp = document.getElementById(`ObjContent`).value
-      if (!localStorage.datajson) {
+      if (!localStorage.jsondatamanager) {
         JSON_Object = {
           "main": [
             {
@@ -47,9 +47,9 @@
             }
           ]
         }
-        localStorage.datajson = JSON.stringify(JSON_Object)
+        localStorage.jsondatamanager = JSON.stringify(JSON_Object)
       } else {
-        data = JSON.parse(localStorage.datajson)
+        data = JSON.parse(localStorage.jsondatamanager)
         if (data.main.find(obj => obj.id === idinp)) {
           return window.location.reload()
         } else {
@@ -57,7 +57,7 @@
             id: idinp,
             content: ctinp
           })
-          localStorage.datajson = JSON.stringify(data)
+          localStorage.jsondatamanager = JSON.stringify(data)
           window.location.reload()
         }
       }

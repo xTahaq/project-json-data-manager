@@ -72,7 +72,7 @@
   </body>
   <script src="loadSettings.js"></script>
   <script>
-    data = JSON.parse(localStorage.settings)
+    data = JSON.parse(localStorage.jsondatamanagerSETTINGS)
 
     page_bgcolor = document.getElementById("SETTINGS_PAGE_BG-COLOR")
     page_txtcolor = document.getElementById("SETTINGS_PAGE_TXT-COLOR")
@@ -89,15 +89,15 @@
         data.page.textcolor = page_txtcolor.value
         data.navbar.bgcolor = navbar_bgcolor.value
         data.navbar.textcolor = navbar_txtcolor.value
-        localStorage.settings = JSON.stringify(data)
+        localStorage.jsondatamanagerSETTINGS = JSON.stringify(data)
         window.location.reload()
     }
     function resetSettings() {
-        delete localStorage.settings
+        delete localStorage.jsondatamanagerSETTINGS
         window.location.reload()
     }
     function resetData() {
-        delete localStorage.datajson
+        delete localStorage.jsondatamanager
         window.location.reload()
     }
     function checkVersion() {

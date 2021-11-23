@@ -1,8 +1,8 @@
-VERSION = "1.1.0.1"
+VERSION = "1.2.0.0"
 
-if (!localStorage.settings) {
+if (!localStorage.jsondatamanagerSETTINGS) {
     console.log("CREATING SETTINGS DATA . . .")
-    localStorage.settings = JSON.stringify({
+    localStorage.jsondatamanagerSETTINGS = JSON.stringify({
         "page": {
             "bgcolor": "#ffffff",
             "textcolor": "#000000"
@@ -14,7 +14,7 @@ if (!localStorage.settings) {
     })
 }
 
-data = JSON.parse(localStorage.settings)
+data = JSON.parse(localStorage.jsondatamanagerSETTINGS)
 navbar = document.getElementById("navbar")
 a = document.getElementsByName("navbarlocate")
 body = document.getElementsByTagName("body")

@@ -24,34 +24,34 @@
     let datajson = null;
 
 
-    if (localStorage.settings) {
+    if (localStorage.jsondatamanagerSETTINGS) {
       document.getElementById("navbar")
     }
 
     async function deleteObj(index) {
-      datajson = JSON.parse(localStorage.datajson)
+      datajson = JSON.parse(localStorage.jsondatamanager)
       data = datajson.main
       data.splice(index, 1)
       window.location.reload()
-      localStorage.datajson = JSON.stringify(datajson)
+      localStorage.jsondatamanager = JSON.stringify(datajson)
     }
 
     async function overwrite(index) {
-      datajson = JSON.parse(localStorage.datajson)
+      datajson = JSON.parse(localStorage.jsondatamanager)
       idinp = document.getElementById(`index${index}inputid`).value
       contentinp = document.getElementById(`index${index}inputct`).value
       data = datajson.main
       data[index].id = idinp
       data[index].content = contentinp
       window.location.reload()
-      localStorage.datajson = JSON.stringify(datajson)
+      localStorage.jsondatamanager = JSON.stringify(datajson)
     }
 
     async function loadPage() {
-      if (!localStorage.datajson) {
+      if (!localStorage.jsondatamanager) {
         return
       }
-      datajson = JSON.parse(localStorage.datajson)
+      datajson = JSON.parse(localStorage.jsondatamanager)
       if (!datajson.main) return Promise("Critical part of the JSON is missing, 'main' (main object)")
       i = 0
       const mainElement = document.getElementById("MAIN")
